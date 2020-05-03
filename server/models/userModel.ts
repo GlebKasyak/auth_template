@@ -1,9 +1,11 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Types } from "mongoose";
 import { NextFunction } from "express";
 import { compare, hash } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 
-import { IUserDocument, IUserModel } from "../interfaces/userInterface";
+import Dialog from "./dialogModel";
+import Message from "./messageModel";
+import { IUserDocument, IUserModel } from "../interfaces/UserInterface";
 
 const userSchema: Schema = new Schema({
     firstName: {
@@ -28,20 +30,28 @@ const userSchema: Schema = new Schema({
         type: String,
         min: 4,
         trim: true
-    }
+    },
+    avatar: {
+        type: String,
+        default: "uploads/default/default_avatar.png"
+    },
+    dialogs: [{ type: Types.ObjectId, ref: "Dialog" }]
 
 }, {
     timestamps: true
 });
 
-userSchema.pre("save", async function(next: NextFunction) {
-    const user: any = this;
+userSchema.pre<IUserDocument>("save", async function(next: NextFunction) {
+    const user = this;
 
-    if(user.isModified("password")) {
-        user.password = await hash(user.password, 15);
-    }
-
+    if(user.isModified("password")) { user.password = await hash(user.password, 15) }
     next();
+});
+
+
+userSchema.post("remove", async function(user: IUserDocument) {
+    await Dialog.deleteMany({ _id: { $in: user.dialogs } });
+    await Message.deleteMany({ $or: [{ author: user._id }, { partner: user._id }] });
 });
 
 userSchema.statics.findByCredentials = async (email: string, password: string): Promise<IUserDocument> => {
@@ -57,7 +67,7 @@ userSchema.statics.findByCredentials = async (email: string, password: string): 
 };
 
 userSchema.methods.generateAuthToken = async function(): Promise<string> {
-    const user = this;
+    const user = this as IUserDocument;
     return sign({ userId: user._id }, "secret");
 };
 

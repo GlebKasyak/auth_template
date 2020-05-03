@@ -1,14 +1,11 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { AxiosResponse } from "axios";
 import { ValidationRule } from "antd/lib/form";
 
-export interface IResponseDataType {
-    message: string,
+export interface ResponseType {
+    message?: string,
     success: boolean,
     err?: Error
 }
-
-export type AxiosPromise<D> = Promise<AxiosResponse<D>>;
 
 export namespace Handlers {
     type SubmitType = (e: SubmitTypes) => Promise<void> | void;
@@ -25,14 +22,6 @@ export namespace Handlers {
         | React.ChangeEvent<HTMLTextAreaElement>
 }
 
-
-export interface ClickParam {
-    key: string;
-    keyPath: Array<string>;
-    item: any;
-    domEvent: Event;
-}
-
 export type SetStateType<T> = Dispatch<SetStateAction<T>>;
 
 
@@ -45,3 +34,15 @@ export type FieldsType = {
     initialValue?: string
 }
 
+export interface ICommon {
+    _id: string,
+    createdAt?: string,
+    updatedAt?: string
+}
+
+export type ScrollDataType = {
+    userId: string,
+    token: string,
+    limit: number,
+    page: number
+}

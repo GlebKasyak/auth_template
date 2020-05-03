@@ -1,1 +1,3 @@
-export { default as User } from "./user.model";
+export { default as User } from "./userModel";
+export { default as Dialog } from "./dialogModel";
+export { default as Message } from "./messageModel";

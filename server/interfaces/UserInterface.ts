@@ -5,6 +5,8 @@ export interface IUserDocument extends Document {
     secondName: string,
     email: string,
     password: string,
+    dialogs: string,
+    avatar: string
 
     generateAuthToken(): Promise<string>
 }
@@ -12,3 +14,4 @@ export interface IUserDocument extends Document {
 export interface IUserModel extends Model<IUserDocument>{
     findByCredentials(email: string, password: string): Promise<IUserDocument>
 }
+

@@ -45,8 +45,20 @@ const NavBar: FC<NavBarPropsType> = ({ logout, token }) => {
                     </Menu.Item>
                     <Menu.Item key="/users" className="navbar__item" >
                         <NavLink to="/users" >
-                            <icons.ContactsOutlined  />
+                            <icons.ContactsOutlined />
                             Users
+                        </NavLink>
+                    </Menu.Item>
+                    <Menu.Item key="/dialogs" className="navbar__item" >
+                        <NavLink to="/dialogs" >
+                            <icons.MessageOutlined />
+                            Dialogs
+                        </NavLink>
+                    </Menu.Item>
+                    <Menu.Item key="/profile" className="navbar__item" >
+                        <NavLink to="/profile" >
+                            <icons.UserOutlined />
+                            Profile
                         </NavLink>
                     </Menu.Item>
                     <Menu.Item key="/logout" >
@@ -75,7 +87,7 @@ const NavBar: FC<NavBarPropsType> = ({ logout, token }) => {
             >
                 <Menu.Item key="/login" className="navbar__item" >
                     <NavLink to="/login" >
-                        <icons.LoginOutlined  />
+                        <icons.LoginOutlined />
                         Login
                     </NavLink>
                 </Menu.Item>

@@ -1,9 +1,11 @@
 import { combineReducers } from "redux";
 
 import user from "./user.reducer";
+import dialog from "./dialog.reducer";
 
 const rootReducer = combineReducers({
-    user
+    user,
+    dialog
 });
 
 type RootReducerType = typeof rootReducer;

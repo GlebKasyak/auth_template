@@ -1,4 +1,5 @@
 @import "../../node_modules/antd/dist/antd.css";
+@import "~emoji-mart/css/emoji-mart.css";
 @import "variables";
 @import "reset";
 
@@ -8,7 +9,7 @@
   display: flex;
   flex-direction: column;
   max-width: 1200px;
-  margin: 140px auto 0;
+  margin: 70px auto 0;
 }
 
 .app {
@@ -25,6 +26,11 @@ button, input {
   cursor: pointer;
 }
 
+body {
+  scrollbar-color: $blue $black;
+  scrollbar-width: 0.75rem;
+}
+
 .center {
   text-align: center;
 }
@@ -35,6 +41,10 @@ button, input {
 
 .btn {
   width: 100%;
+}
+
+.img {
+  border-radius: 100%!important;
 }
 
 .right {
@@ -58,11 +68,24 @@ button, input {
   margin-top: $default-margin;
 }
 
+.mt-1 {
+  margin-bottom: $default-margin;
+}
+
+.pl-1 {
+  padding-left: $default-padding;
+}
+
+.pr-1 {
+  padding-right: $default-padding;
+}
+
 //change style of scrollbar
 ::-webkit-scrollbar-track {
   border-radius: 0.625rem;
   background-color: $black;
 }
+
 
 ::-webkit-scrollbar {
   width: 0.75rem;

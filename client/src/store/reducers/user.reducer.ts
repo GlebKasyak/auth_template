@@ -1,7 +1,7 @@
 import { Reducer } from "redux";
 
 import * as userTypes from "../types/userTypes";
-import { actions } from "../actions/user.action";
+import { userActions } from "../actions/user.action";
 import { UserState } from "../../typescript/user";
 import { InferActionsTypes } from "./index";
 
@@ -10,6 +10,7 @@ const initialState: UserState = {
         firstName: "",
         secondName: "",
         email: "",
+        avatar: "",
         _id: "",
         createdAt: "",
         isAuth: false
@@ -18,7 +19,7 @@ const initialState: UserState = {
     users: [],
 };
 
-type ActionsTypes = InferActionsTypes<typeof actions>;
+type ActionsTypes = InferActionsTypes<typeof userActions>;
 
 const reducer: Reducer<UserState, ActionsTypes> = (state = initialState, action: ActionsTypes ): UserState => {
     switch (action.type) {
@@ -44,10 +45,22 @@ const reducer: Reducer<UserState, ActionsTypes> = (state = initialState, action:
         case userTypes.GET_USERS:
             return {
                 ...state,
-                users: [
-                    ...state.users,
-                    ...action.payload
-                ]
+                users: [...state.users, ...action.payload]
+            };
+        case userTypes.UPLOAD_AVATAR:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    avatar: action.payload
+                }
+            };
+        case userTypes.REMOVE_USER:
+            return { ...state, user: initialState.user };
+        case userTypes.SEARCH_USER_BY_EMAIL:
+            return {
+                ...state,
+                users: action.payload
             };
         default:
             return state;

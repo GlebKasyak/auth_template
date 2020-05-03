@@ -1,5 +1,6 @@
 import instance from "./api";
-import { LoginDataType, RegisterDataType, GetUsersDataType } from "../typescript/user";
+import { ScrollDataType } from "../typescript/common";
+import { LoginDataType, RegisterDataType } from "../typescript/user";
 
 export class UserAPI {
 
@@ -23,8 +24,30 @@ export class UserAPI {
         });
     };
 
-    static getUsers = ({ userId, token }: GetUsersDataType) => {
-        return instance.get(`/user/all/${ userId }`, {
+    static getUsers = ({ token, userId, limit, page }: ScrollDataType) => {
+        return instance.get(`/user/all?userId=${ userId }&limit=${ limit }&page=${ page }`, {
+            headers: { Authorization: `Bearer ${ token }` }
+        });
+    };
+
+    static uploadAvatar = (type: string, file: File, token: string) => {
+        const formData: FormData = new FormData();
+        formData.append(type, file);
+
+        return instance.post("/user/upload-avatar", formData, {
+            headers: { "Content-Type": "multipart/form-data", Authorization: `Bearer ${ token }` }
+
+        });
+    };
+
+    static removeUser = (token: string) => {
+        return instance.delete("/user/", {
+            headers: { Authorization: `Bearer ${ token }` }
+        });
+    };
+
+    static searchUserByEmail = (value: string, token: string, userId: string) => {
+        return instance.post("/user/search", { value, userId }, {
             headers: { Authorization: `Bearer ${ token }` }
         });
     };

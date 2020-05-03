@@ -9,5 +9,6 @@ export default {
     PORT: process.env.PORT!,
     MONGODB_URL: process.env.MONGODB_URL!,
     SERVER_URL: process.env.SERVER_URL!,
-    RECAPTCHA_KEY: process.env.RECAPTCHA_KEY!
+    RECAPTCHA_KEY: process.env.RECAPTCHA_KEY!,
+    ADMIN_ID: process.env.ADMIN_ID!
 }

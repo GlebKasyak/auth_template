@@ -6,7 +6,11 @@ import {
     PlaySquareOutlined,
     ContactsOutlined,
     DeleteOutlined,
-    SettingOutlined
+    SettingOutlined,
+    MessageOutlined,
+    UserOutlined,
+    ExclamationCircleOutlined,
+    UploadOutlined
 
 } from "@ant-design/icons";
 
@@ -18,5 +22,9 @@ export default {
     LoginOutlined,
     SaveOutlined,
     PlaySquareOutlined,
-    ContactsOutlined
+    ContactsOutlined,
+    MessageOutlined,
+    UserOutlined,
+    ExclamationCircleOutlined,
+    UploadOutlined
 };

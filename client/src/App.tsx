@@ -6,7 +6,7 @@ import { AppStateType } from "./store/reducers";
 
 import "./styles/app.scss";
 
-import { Home, UsersPage, Page404 } from "./pages";
+import { Home, UsersPage, DialogsPage, ChatPage, ProfilePage, Page404 } from "./pages";
 import { NavBar } from "./components";
 import { LoginForm, RegisterForm } from "./modules";
 
@@ -44,6 +44,9 @@ let App: FC<AppPropsType> = ({ isAuth, getAuthUserData }) => {
         <Switch>
           <Route exact path="/" component={ DoNotAuth(Home) } />
           <Route exact path="/users" component={ DoNotAuth(UsersPage) } />
+          <Route exact path="/dialogs" component={ DoNotAuth(DialogsPage) } />
+          <Route exact path="/chat" component={ DoNotAuth(ChatPage) } />
+          <Route exact path="/profile" component={ DoNotAuth(ProfilePage) } />
 
           <Route path="/login" component={ Auth(LoginForm) } />
           <Route path="/register" component={ Auth(RegisterForm) } />

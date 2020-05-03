@@ -1,22 +1,17 @@
+import { ICommon } from "./common";
+
 export interface UserState {
     user: IUser,
     token: string,
     users: Array<IUser>
 }
 
-export type GetUsersDataType = {
-    userId: string,
-    token: string
-}
-
-export interface IUser {
+export interface IUser extends ICommon{
     firstName: string,
     secondName: string,
     email: string,
+    avatar: string,
     password?: string,
-    _id: string,
-    createdAt?: string,
-    updatedAt?: string,
     isAuth?: boolean
 }
 

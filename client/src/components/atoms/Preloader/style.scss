@@ -8,8 +8,16 @@
 
   @extend %display-flex-center;
 
-  &--scroll-loader {
+  &--bottom-scroll-loader {
     height: auto;
+  }
+
+  &--top-scroll-loader {
+    height: max-content;
+    top: 25px;
+  }
+
+  &--bottom-scroll-loader, &--top-scroll-loader {
     position: absolute;
     bottom: 2rem;
     left: 50%;

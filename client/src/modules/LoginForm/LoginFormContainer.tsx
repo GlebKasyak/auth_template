@@ -4,7 +4,7 @@ import { Form } from "antd";
 import { FormComponentProps } from "antd/lib/form";
 
 import LoginForm from "./LoginForm";
-import { login } from "../../store/actions/user.action";
+import { login, ThunkDispatchUsersType } from "../../store/actions/user.action";
 
 import { ErrorMessage, Preloader, Recaptcha } from "../../components";
 
@@ -12,7 +12,7 @@ import { storageKeys } from "../../shared/constants";
 import rememberMe from "../../shared/rememberMe";
 
 import { AppStateType } from "../../store/reducers";
-import { Handlers, FieldsType } from "../../typescript/common";
+import { Handlers, FieldsType, ResponseType } from "../../typescript/common";
 import { IUser, LoginDataType } from "../../typescript/user";
 
 type MapStateToPropsType = {
@@ -21,7 +21,7 @@ type MapStateToPropsType = {
 }
 
 type MapDispatchToPropsType = {
-   login: (data: LoginDataType) => any
+   login: (data: LoginDataType) => Promise<ResponseType>
 }
 
 type PropsType = MapStateToPropsType & MapDispatchToPropsType & FormComponentProps;
@@ -44,7 +44,7 @@ const LoginFormContainer: FC<PropsType> = memo((
         rememberMe(form, JSON.stringify(data));
 
         const response = await login(data);
-        if(!response.success) setErr(response.message);
+        if(!response.success) setErr(response.message!);
         setIsLoading(false);
         form.resetFields();
     };
@@ -145,9 +145,13 @@ const mapStateToProps = ({ user } : AppStateType) => ({
     token: user.token
 });
 
+const mapDispatchToProps = (dispatch: ThunkDispatchUsersType) => ({
+    login: (data: LoginDataType) => dispatch(login(data)),
+});
+
 const LoginFormComponent = Form.create()(LoginFormContainer);
 
 export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(
     mapStateToProps,
-    { login })
+    mapDispatchToProps)
 (LoginFormComponent);
